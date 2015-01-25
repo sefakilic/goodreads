@@ -1,3 +1,3 @@
 # Goodreads
 
-Python API for Goodreads
+Python wrapper for Goodreads API
