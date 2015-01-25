@@ -2,6 +2,7 @@ import requests
 import webbrowser
 import xmltodict
 from session import GoodreadsSession
+from user import GoodreadsUser
 
 class GoodreadsClient():
     base_url = "http://www.goodreads.com/"
@@ -31,10 +32,19 @@ class GoodreadsClient():
             self.session.oauth_finalize()
 
     def auth_user(self):
-        """Get id of user who authorized OAuth"""
+        """Return user who authorized OAuth"""
         if not self.session:
             raise Exception("No authenticated session")
-        return self.request("api/auth_user")
+        resp = self.session.get("api/auth_user", {})
+        user_id = resp['GoodreadsResponse']['user']['@id']
+        return self.user(user_id)
+
+    def user(self, user_id=None, username=None):
+        """Get info about a member by id or username"""
+        if not (user_id or username):
+            raise Exception("user_id or username required")
+        resp = self.request("user/show", {'id': user_id, 'username': username})
+        return GoodreadsUser(xmltodict.parse(resp.text))
 
     def author_books(self, author_id, page=1):
         """Get a paginated list of an author's books"""
@@ -62,6 +72,23 @@ class GoodreadsClient():
         """Get the reviews for a book given a Goodreads book id"""
         resp = self.request("book/show", {'id': book_id})
         return xmltodict.parse(resp.text)
+
+    def book_show_by_isbn(self, isbn):
+        """Get the reviews for a book given by a ISBN"""
+        resp = self.request("book/isbn", {'isbn': isbn})
+        return xmltodict.parse(resp.text)
+
+    def book_title(self, title, author=None):
+        """Get the reviews for a book given its title and optionally author"""
+        params = {'title': title}
+        if author:
+            params['author'] = author
+        resp = self.request("book/title", params)
+        return xmltodict.parse(resp.text)
+
+    def owned_book_list(self, user_id):
+        resp = self.session.get("owned_books/user", {'id': user_id, 'format': 'xml'})
+        return resp
 
 
 gc = GoodreadsClient("sy1BoFti8To9YO2uUc2NQ",

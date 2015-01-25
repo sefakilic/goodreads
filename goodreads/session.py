@@ -1,4 +1,5 @@
 from rauth.service import OAuth1Service, OAuth1Session
+import xmltodict
 
 class GoodreadsSession():
     """Handle OAuth sessions"""
@@ -44,3 +45,11 @@ class GoodreadsSession():
             consumer_secret=self.client_secret,
             access_token=self.access_token,
             access_token_secret=self.access_token_secret)
+
+    def get(self, path, params=None):
+        """OAuth get request"""
+        if not params:
+            params = {}
+        base = "http://www.goodreads.com/"
+        resp = self.session.get(base + path, params=params)
+        return xmltodict.parse(resp.content)
