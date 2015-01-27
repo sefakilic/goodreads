@@ -7,7 +7,7 @@ class GoodreadsRequestException(Exception):
         self.url = url
 
     def __str__(self):
-        return self.error_msg + '\n' + self.url
+        return self.error_msg + '(%s)' % url
 
 class GoodreadsRequest():
     def __init__(self, client, path, query_dict):
@@ -19,7 +19,7 @@ class GoodreadsRequest():
     def request(self):
         resp = requests.get(self.host+self.path, params=self.params)
         if resp.status_code != 200:
-            raise GoodreadsRequestException(resp.response, self.path)
+            raise GoodreadsRequestException(resp.reason, self.path)
 
         data_dict = xmltodict.parse(resp.content)
         return data_dict['GoodreadsResponse']

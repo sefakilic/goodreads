@@ -1,7 +1,9 @@
 import webbrowser
+
 from session import GoodreadsSession
 from user import GoodreadsUser
 from author import GoodreadsAuthor
+from book import GoodreadsBook
 from request import GoodreadsRequest
 class GoodreadsClient():
     base_url = "http://www.goodreads.com/"
@@ -45,11 +47,17 @@ class GoodreadsClient():
         if not (user_id or username):
             raise Exception("user_id or username required")
         resp = self.request("user/show", {'id': user_id, 'username': username})
-        return GoodreadsUser(resp)
+        return GoodreadsUser(resp['user'])
 
     def author(self, author_id):
         """Get info about an author"""
-        pass
+        resp = self.request("author/show", {'id': author_id})
+        return GoodreadsAuthor(resp['author'])
+
+    def book(self, book_id):
+        """Get info about a book"""
+        resp = self.request("book/show", {'id': book_id})
+        return GoodreadsBook(resp['book'])
 
 gc = GoodreadsClient("sy1BoFti8To9YO2uUc2NQ",
                      "NwQZdMRrhdgYTdg81dZrPfrTeBIGqnBcqR6nbIPCMg")
