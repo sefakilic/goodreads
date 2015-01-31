@@ -78,7 +78,7 @@ class GoodreadsAuthor:
         """Goodreads user profile of the author"""
         return GoodreadsUser(self._author_dict['id']['#text'])
 
-    @profile
+    @property
     def works_count(self):
         """Author number of works"""
         return self._author_dict['works_count']
