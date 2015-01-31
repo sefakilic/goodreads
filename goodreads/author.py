@@ -1,4 +1,7 @@
+"""Goodreads author class"""
+
 from book import GoodreadsBook
+from user import GoodreadsUser
 
 class GoodreadsAuthor:
     def __init__(self, author_dict):
