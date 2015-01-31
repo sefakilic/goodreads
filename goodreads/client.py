@@ -2,9 +2,17 @@ import webbrowser
 
 from session import GoodreadsSession
 from user import GoodreadsUser
-from author import GoodreadsAuthor
 from book import GoodreadsBook
+from author import GoodreadsAuthor
 from request import GoodreadsRequest
+
+class GoodreadsClientException(Exception):
+    def __init__(self, error_msg):
+        self.error_msg = error_msg
+
+    def __str__(self):
+        return self.error_msg
+
 class GoodreadsClient():
     base_url = "http://www.goodreads.com/"
 
@@ -32,7 +40,7 @@ class GoodreadsClient():
     def auth_user(self):
         """Return user who authorized OAuth"""
         if not self.session:
-            raise Exception("No authenticated session")
+            raise GoodreadsClientException("No authenticated session")
         resp = self.session.get("api/auth_user", {})
         user_id = resp['GoodreadsResponse']['user']['@id']
         return self.user(user_id)
@@ -45,7 +53,7 @@ class GoodreadsClient():
     def user(self, user_id=None, username=None):
         """Get info about a member by id or username"""
         if not (user_id or username):
-            raise Exception("user_id or username required")
+            raise GoodreadsClientException("user_id or username required")
         resp = self.request("user/show", {'id': user_id, 'username': username})
         return GoodreadsUser(resp['user'])
 
@@ -54,11 +62,17 @@ class GoodreadsClient():
         resp = self.request("author/show", {'id': author_id})
         return GoodreadsAuthor(resp['author'])
 
-    def book(self, book_id):
+    def book(self, book_id=None, isbn=None):
         """Get info about a book"""
-        resp = self.request("book/show", {'id': book_id})
-        return GoodreadsBook(resp['book'])
-
+        if book_id:
+            resp = self.request("book/show", {'id': book_id})
+            return GoodreadsBook(resp['book'])
+        elif isbn:
+            resp = self.request("book/isbn", {'isbn': isbn})
+            return GoodreadsBook(resp['book'])
+        else:
+            raise GoodreadsClientException("book id or isbn required")
+                                           
 gc = GoodreadsClient("sy1BoFti8To9YO2uUc2NQ",
                      "NwQZdMRrhdgYTdg81dZrPfrTeBIGqnBcqR6nbIPCMg")
 gc.authenticate(u'9nuSGNZ1tw57RECezUlig', u'5kNJBxe4cvgjx5GUn8aPktqlEHAl24wM33idVHwI7cI')

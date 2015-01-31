@@ -1,7 +1,6 @@
 """Goodreads book class"""
 
-from author import GoodreadsAuthor
-
+import author
 
 class GoodreadsBook:
     def __init__(self, book_dict):
@@ -11,6 +10,11 @@ class GoodreadsBook:
         return self.title
 
     @property
+    def id(self):
+        """Goodreads id of the book"""
+        return self._book_dict['id']
+
+    @property
     def title(self):
         """Title of the book"""
         return self._book_dict['title']
@@ -18,7 +22,7 @@ class GoodreadsBook:
     @property
     def authors(self):
         """Authors of the book"""
-        return [GoodreadsAuthor(author_dict)
+        return [author.GoodreadsAuthor(author_dict)
                 for author_dict in self._book_dict['authors']['author']]
 
     @property
