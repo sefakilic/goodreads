@@ -1,11 +1,12 @@
-from request import GoodreadsRequest
+import book
 
 class GoodreadsUser():
-    def __init__(self, user_dict):
+    def __init__(self, user_dict, client):
         self._user_dict = user_dict
+        self._client = client   # for later queries
 
     def __repr__(self):
-        return self.username
+        return self.user_name
 
     @property
     def id(self):
@@ -37,3 +38,6 @@ class GoodreadsUser():
         """URL of user image (small)"""
         return self._user_dict['small_image_url']
 
+    def books_owned(self, page=1):
+        """Return the list of books owned by the user"""
+        raise NotImplementedError

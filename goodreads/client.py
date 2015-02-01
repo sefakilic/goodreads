@@ -42,7 +42,7 @@ class GoodreadsClient():
         if not self.session:
             raise GoodreadsClientException("No authenticated session")
         resp = self.session.get("api/auth_user", {})
-        user_id = resp['GoodreadsResponse']['user']['@id']
+        user_id = resp['user']['@id']
         return self.user(user_id)
 
     def request(self, *args, **kwargs):
@@ -50,12 +50,16 @@ class GoodreadsClient():
         req = GoodreadsRequest(self, *args, **kwargs)
         return req.request()
 
+    def request_oauth(self, *args, **kwargs):
+        resp = self.session.get(*args, **kwargs)
+        return resp
+
     def user(self, user_id=None, username=None):
         """Get info about a member by id or username"""
         if not (user_id or username):
             raise GoodreadsClientException("user_id or username required")
         resp = self.request("user/show", {'id': user_id, 'username': username})
-        return GoodreadsUser(resp['user'])
+        return GoodreadsUser(resp['user'], self)
 
     def author(self, author_id):
         """Get info about an author"""

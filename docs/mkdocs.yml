@@ -1,0 +1,5 @@
+site_name: goodreads-python
+theme: readthedocs
+pages:
+- [index.md, Home]
+- [about.md, About]

@@ -41,9 +41,9 @@ def user_test():
 
 def author_test():
     gc = make_client()
-    author = gc.author(18541)
+    author = gc.author(1406384)
     ok_(isinstance(author, GoodreadsAuthor))
-    ok_(author.id)
+    ok_(isinstance(book, GoodreadsBook) for book in author.books)
 
 def book_test():
     gc = make_client()

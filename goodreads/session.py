@@ -52,4 +52,4 @@ class GoodreadsSession():
             params = {}
         base = "http://www.goodreads.com/"
         resp = self.session.get(base + path, params=params)
-        return xmltodict.parse(resp.content)
+        return xmltodict.parse(resp.content)['GoodreadsResponse']
