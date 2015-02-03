@@ -5,6 +5,7 @@ from user import GoodreadsUser
 from book import GoodreadsBook
 from author import GoodreadsAuthor
 from request import GoodreadsRequest
+from comment import GoodreadsComment
 
 class GoodreadsClientException(Exception):
     def __init__(self, error_msg):
@@ -76,7 +77,25 @@ class GoodreadsClient():
             return GoodreadsBook(resp['book'])
         else:
             raise GoodreadsClientException("book id or isbn required")
-                                           
+
+    def comments(self, comment_type, resource_id, page=1):
+        """List comments on a subject.
+
+        comment_type should be one of 'author_blog_post', 'blog',
+        'book_news_post', 'chapter', 'comment', 'community_answer',
+        'event_response', 'fanship', 'friend', 'giveaway', 'giveaway_request',
+        'group_user', 'interview', 'librarian_note', 'link_collection', 'list',
+        'owned_book', 'photo', 'poll', 'poll_vote', 'queued_item', 'question',
+        'question_user_stat', 'quiz', 'quiz_score', 'rating', 'read_status',
+        'recommendation', 'recommendation_request', 'review', 'topic', 'user',
+        'user_challenge', 'user_following', 'user_list_challenge',
+        'user_list_vote', 'user_quote', 'user_status', 'video'.
+        """
+        resp = self.request("%s/%s/comments" % (comment_type, resource_id),
+                            {'format':'xml'})
+        return [GoodreadsComment(comment_dict)
+                for comment_dict in resp['comments']['comment']]
+
 gc = GoodreadsClient("sy1BoFti8To9YO2uUc2NQ",
                      "NwQZdMRrhdgYTdg81dZrPfrTeBIGqnBcqR6nbIPCMg")
 gc.authenticate(u'9nuSGNZ1tw57RECezUlig', u'5kNJBxe4cvgjx5GUn8aPktqlEHAl24wM33idVHwI7cI')
