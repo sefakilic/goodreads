@@ -96,6 +96,7 @@ class GoodreadsClient():
         return [GoodreadsComment(comment_dict)
                 for comment_dict in resp['comments']['comment']]
 
-gc = GoodreadsClient("sy1BoFti8To9YO2uUc2NQ",
-                     "NwQZdMRrhdgYTdg81dZrPfrTeBIGqnBcqR6nbIPCMg")
-gc.authenticate(u'9nuSGNZ1tw57RECezUlig', u'5kNJBxe4cvgjx5GUn8aPktqlEHAl24wM33idVHwI7cI')
+
+import apikey
+gc = GoodreadsClient(apikey.key, apikey.secret)
+
