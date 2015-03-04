@@ -6,6 +6,7 @@ from author import GoodreadsAuthor
 from request import GoodreadsRequest
 from comment import GoodreadsComment
 from event import GoodreadsEvent
+from group import GoodreadsGroup
 
 class GoodreadsClientException(Exception):
     def __init__(self, error_msg):
@@ -79,6 +80,11 @@ class GoodreadsClient():
         else:
             raise GoodreadsClientException("book id or isbn required")
 
+    def find_groups(self, query, page=1):
+        """Find a group based on the query"""
+        resp = self.request("group/search.xml", {'q': query, 'page': page})
+        return [GoodreadsGroup(g) for g in resp['groups']['list']['group']]
+
     def book_review_stats(self, isbns):
         """Get review statistics for books given a list of ISBNs"""
         resp = self.request("book/review_counts.json",
@@ -104,7 +110,7 @@ class GoodreadsClient():
         return [GoodreadsComment(comment_dict)
                 for comment_dict in resp['comments']['comment']]
 
-    def events(self, postal_code):
+    def list_events(self, postal_code):
         """Show events near a location specified with the postal code"""
         resp = self.session.get("event/index.xml", {'search[postal_code]': postal_code})
         return [GoodreadsEvent(e) for e in resp['events']['event']]
@@ -112,5 +118,6 @@ class GoodreadsClient():
 import apikey
 gc = GoodreadsClient(apikey.key, apikey.secret)
 gc.authenticate(apikey.oauth_access_token, apikey.oauth_access_token_secret)
-b = gc.book(50)
-es = gc.events(21229)
+#b = gc.book(50)
+#es = gc.list_events(21229)
+u = gc.user(1)
