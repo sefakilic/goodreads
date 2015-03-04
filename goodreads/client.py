@@ -1,5 +1,4 @@
 import webbrowser
-
 from session import GoodreadsSession
 from user import GoodreadsUser
 from book import GoodreadsBook
@@ -27,6 +26,7 @@ class GoodreadsClient():
         return {'key': self.client_key}
 
     def authenticate(self, access_token=None, access_token_secret=None):
+        """Authenticate client to query requiring authorization"""
         self.session = GoodreadsSession(self.client_key, self.client_secret,
                                         access_token, access_token_secret)
         if access_token and access_token_secret:
@@ -78,7 +78,16 @@ class GoodreadsClient():
         else:
             raise GoodreadsClientException("book id or isbn required")
 
-    def comments(self, comment_type, resource_id, page=1):
+    def book_review_stats(self, isbns):
+        """Get review statistics for books given a list of ISBNs"""
+        resp = self.request("book/review_counts.json",
+                            {'isbns': ','.join(isbns)},
+                            req_format='json')
+        return resp['books']
+
+    
+        
+    def list_comments(self, comment_type, resource_id, page=1):
         """List comments on a subject.
 
         comment_type should be one of 'author_blog_post', 'blog',
@@ -96,7 +105,16 @@ class GoodreadsClient():
         return [GoodreadsComment(comment_dict)
                 for comment_dict in resp['comments']['comment']]
 
+    def create_comment(self, comment_type, resource_id, body):
+        """Create a new comment."""
+        raise NotImplementedError
+
+    def events(self, coordinates=None, search_code=None):
+        """Show events near a location given coordinates (lat, lng) or
+        search_code (2 chars country code or zip code)"""
+        resp = self.session.get("event/index.xml", {'search_code': '10001'})
+        raise NotImplementedError
 
 import apikey
 gc = GoodreadsClient(apikey.key, apikey.secret)
-
+gc.authenticate(apikey.oauth_access_token, apikey.oauth_access_token_secret)

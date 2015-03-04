@@ -43,10 +43,4 @@ class GoodreadsUser():
         """Return the list of books owned by the user"""
         raise NotImplementedError
 
-    def status(self):
-        """Get information about a user status update"""
-        req = request.GoodreadsRequest(self._client,
-                                       "user_status/show/" + self.gid,
-                                       {'format': 'xml'})
-        resp = req.request()
-        return resp
+

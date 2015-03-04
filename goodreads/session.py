@@ -23,8 +23,6 @@ class GoodreadsSession():
         )
         request_token, request_token_secret = service.get_request_token(header_auth=True)
         auth_url = service.get_authorize_url(request_token)
-        print "To authorize access, visit", auth_url
-
         # Store service for finalizing
         self.request_token = request_token
         self.request_token_secret = request_token_secret
@@ -33,6 +31,7 @@ class GoodreadsSession():
 
     def oauth_finalize(self):
         """Once the user authorizes access, save access tokens"""
+        print self.request_token, self.request_token_secret
         self.session = self.service.get_auth_session(self.request_token,
                                                      self.request_token_secret)
         self.access_token = self.session.access_token
