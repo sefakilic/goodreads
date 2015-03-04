@@ -1,5 +1,7 @@
 """Class for Goodreads comments"""
 
+import user
+
 class GoodreadsComment:
     """Goodreads comment class"""
     def __init__(self, comment_dict):
@@ -18,7 +20,7 @@ class GoodreadsComment:
     @property
     def user(self):
         """User that made the comment"""
-        return user.GoodreadsUser(self._comment_dict['user'])
+        return self._comment_dict['user']
 
     @property
     def created_at(self):

@@ -5,6 +5,7 @@ from book import GoodreadsBook
 from author import GoodreadsAuthor
 from request import GoodreadsRequest
 from comment import GoodreadsComment
+from event import GoodreadsEvent
 
 class GoodreadsClientException(Exception):
     def __init__(self, error_msg):
@@ -85,8 +86,6 @@ class GoodreadsClient():
                             req_format='json')
         return resp['books']
 
-    
-        
     def list_comments(self, comment_type, resource_id, page=1):
         """List comments on a subject.
 
@@ -101,20 +100,17 @@ class GoodreadsClient():
         'user_list_vote', 'user_quote', 'user_status', 'video'.
         """
         resp = self.request("%s/%s/comments" % (comment_type, resource_id),
-                            {'format':'xml'})
+                            {'format': 'xml'})
         return [GoodreadsComment(comment_dict)
                 for comment_dict in resp['comments']['comment']]
 
-    def create_comment(self, comment_type, resource_id, body):
-        """Create a new comment."""
-        raise NotImplementedError
-
-    def events(self, coordinates=None, search_code=None):
-        """Show events near a location given coordinates (lat, lng) or
-        search_code (2 chars country code or zip code)"""
-        resp = self.session.get("event/index.xml", {'search_code': '10001'})
-        raise NotImplementedError
+    def events(self, postal_code):
+        """Show events near a location specified with the postal code"""
+        resp = self.session.get("event/index.xml", {'search[postal_code]': postal_code})
+        return [GoodreadsEvent(e) for e in resp['events']['event']]
 
 import apikey
 gc = GoodreadsClient(apikey.key, apikey.secret)
 gc.authenticate(apikey.oauth_access_token, apikey.oauth_access_token_secret)
+b = gc.book(50)
+es = gc.events(21229)
