@@ -5,13 +5,14 @@ import user
 
 class GoodreadsAuthor:
     def __init__(self, author_dict):
+        print author_dict.keys()
         self._author_dict = author_dict
 
     def __repr__(self):
         return self.name
 
     @property
-    def id(self):
+    def gid(self):
         """Goodreads id of the author"""
         return self._author_dict['id']
 

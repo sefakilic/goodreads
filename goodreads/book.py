@@ -23,7 +23,12 @@ class GoodreadsBook:
     def authors(self):
         """Authors of the book"""
         return [author.GoodreadsAuthor(author_dict)
-                for author_dict in self._book_dict['authors']['author']]
+                for author_dict in self._book_dict['authors']]
+
+    @property
+    def description(self):
+        """Description of the book"""
+        return self._book_dict['description']
 
     @property
     def average_rating(self):
@@ -46,11 +51,6 @@ class GoodreadsBook:
         return self._book_dict['text_reviews_count']
 
     @property
-    def description(self):
-        """Description of the book"""
-        return self._book_dict['description']
-
-    @property
     def num_pages(self):
         """Number of pages of the book"""
         return self._book_dict['num_pages']
@@ -59,6 +59,11 @@ class GoodreadsBook:
     def popular_shelves(self):
         """Popular shelves for the book"""
         return self._book_dict['popular_shelves']
+
+    @property
+    def work(self):
+        """Information on the original work"""
+        return self._book_dict['work']
 
     @property
     def series_works(self):
@@ -76,6 +81,11 @@ class GoodreadsBook:
     def publisher(self):
         """Publisher for the book"""
         return self._book_dict['publisher']
+
+    @property
+    def langauge_code(self):
+        """Language code for the book"""
+        return self._book_dict['language_code']
 
     @property
     def edition_information(self):
@@ -98,6 +108,11 @@ class GoodreadsBook:
         return self._book_dict['is_ebook']
 
     @property
+    def format(self):
+        """Book format"""
+        return self._book_dict['format']
+
+    @property
     def isbn(self):
         """ISBN of the book"""
         return self._book_dict['isbn']
@@ -116,3 +131,11 @@ class GoodreadsBook:
     def reviews_widget(self):
         """Widget for reviews in HTML"""
         return self._book_dict['reviews_widget']
+
+    @property
+    def similar_books(self):
+        """Return the list of similar books."""
+        return self._book_dict['similar_books']['book']
+
+
+
