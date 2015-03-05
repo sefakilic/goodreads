@@ -2,6 +2,7 @@ import book
 import request
 import group
 import owned_book
+import review
 
 class GoodreadsUser():
     def __init__(self, user_dict, client):
@@ -54,4 +55,21 @@ class GoodreadsUser():
         return [owned_book.GoodreadsOwnedBook(d)
                 for d in resp['owned_books']['owned_book']]
 
+    def read_status(self):
+        """Get the user's read status"""
+        resp = self._client.request("read_statuses/%s" % self.gid, {})
+        return resp['read']
+
+    def reviews(self, page=1):
+        """Get all books and reviews on user's shelves"""
+        resp = self._client.session.get("/review/list.xml",
+                                        {'v': 2, 'id': self.gid, 'page': page})
+        return [GoodreadsReview(r) for r in resp['reviews']['review']]
+
+    def shelves(self, page=1):
+        """Get the user's shelves. This method gets shelves only for users with
+        public profile"""
+        resp = self._client.request("shelf/list.xml",
+                                    {'user_id': self.gid, 'page': page})
+        return resp['shelves']['user_shelf']
 

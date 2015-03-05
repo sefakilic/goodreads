@@ -8,6 +8,7 @@ from comment import GoodreadsComment
 from event import GoodreadsEvent
 from group import GoodreadsGroup
 from owned_book import GoodreadsOwnedBook
+from review import GoodreadsReview
 
 class GoodreadsClientException(Exception):
     def __init__(self, error_msg):
@@ -126,10 +127,21 @@ class GoodreadsClient():
         resp = self.session.get("event/index.xml", {'search[postal_code]': postal_code})
         return [GoodreadsEvent(e) for e in resp['events']['event']]
 
+    def recent_reviews(self):
+        """Get the recent reviews from all members"""
+        resp = self.request("/review/recent_reviews.xml", {})
+        return [GoodreadsReview(r) for r in resp['reviews']['review']]
+
+    def review(self, review_id):
+        """Get a review"""
+        resp = self.request("/review/show.xml", {'id': review_id})
+        return GoodreadsReview(resp['review'])
+
 import apikey
 gc = GoodreadsClient(apikey.key, apikey.secret)
 gc.authenticate(apikey.oauth_access_token, apikey.oauth_access_token_secret)
-b = gc.book(50)
+#b = gc.book(50)
 #es = gc.list_events(21229)
 u = gc.user(1)
+
 
