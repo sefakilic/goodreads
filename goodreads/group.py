@@ -16,6 +16,26 @@ class GoodreadsGroup:
         return self._group_dict['title']
 
     @property
+    def description(self):
+        """Description of the group"""
+        return self._group_dict['description']
+
+    @property
+    def category(self):
+        """Category of the group"""
+        return self._group_dict['category']
+
+    @property
+    def subcategory(self):
+        """Sub-category of the group"""
+        return self._group_dict['subcategory']
+
+    @property
+    def rules(self):
+        """Group rules"""
+        return self._group_dict['rules']
+
+    @property
     def image_url(self):
         """Image URL for the group"""
         return self._group_dict['image_url']
@@ -33,5 +53,10 @@ class GoodreadsGroup:
     @property
     def users_count(self):
         """Number of users in the group"""
-        return self._group_dict['users_count']
+        return self._group_dict['group_users_count']
+
+    @property
+    def members(self):
+        """Members of the group"""
+        return self._group_dict['members']['group_users']
 

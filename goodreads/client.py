@@ -7,6 +7,7 @@ from request import GoodreadsRequest
 from comment import GoodreadsComment
 from event import GoodreadsEvent
 from group import GoodreadsGroup
+from owned_book import GoodreadsOwnedBook
 
 class GoodreadsClientException(Exception):
     def __init__(self, error_msg):
@@ -80,10 +81,20 @@ class GoodreadsClient():
         else:
             raise GoodreadsClientException("book id or isbn required")
 
+    def group(self, group_id):
+        """Get info about a group"""
+        resp = self.request("group/show", {'id': group_id})
+        return GoodreadsGroup(resp['group'])
+
+    def owned_book(self, owned_book_id):
+        """Get info about an owned book, given its id"""
+        resp = self.session.get("owned_books/show/%s.xml" % owned_book_id, {})
+        return GoodreadsOwnedBook(resp['owned_book']['owned_book'])
+
     def find_groups(self, query, page=1):
         """Find a group based on the query"""
         resp = self.request("group/search.xml", {'q': query, 'page': page})
-        return [GoodreadsGroup(g) for g in resp['groups']['list']['group']]
+        return resp['groups']['list']['group']
 
     def book_review_stats(self, isbns):
         """Get review statistics for books given a list of ISBNs"""
@@ -118,6 +129,7 @@ class GoodreadsClient():
 import apikey
 gc = GoodreadsClient(apikey.key, apikey.secret)
 gc.authenticate(apikey.oauth_access_token, apikey.oauth_access_token_secret)
-#b = gc.book(50)
+b = gc.book(50)
 #es = gc.list_events(21229)
 u = gc.user(1)
+

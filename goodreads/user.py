@@ -1,6 +1,7 @@
 import book
 import request
 import group
+import owned_book
 
 class GoodreadsUser():
     def __init__(self, user_dict, client):
@@ -44,10 +45,13 @@ class GoodreadsUser():
         """List groups for the user. If there are more than 30 groups, get them
         page by page."""
         resp = self._client.request("group/list/%s.xml" % self.gid, {'page':page})
-        return [group.GoodreadsGroup(g) for g in resp['groups']['list']['group']]
+        return resp['groups']['list']['group']
 
-    def books_owned(self, page=1):
+    def owned_books(self, page=1):
         """Return the list of books owned by the user"""
-        raise NotImplementedError
+        resp = self._client.session.get("owned_books/user/%s.xml" % self.gid,
+                                        {'page': page, 'format': 'xml'})
+        return [owned_book.GoodreadsOwnedBook(d)
+                for d in resp['owned_books']['owned_book']]
 
 
