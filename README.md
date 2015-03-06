@@ -7,7 +7,7 @@
 
 This package provides a Python interface for the
 [Goodreads API](http://goodreads.com/api). Using it, you can do pretty much
-everything that Goodreads allows to do with their own data.
+anything that Goodreads allows to do with their own data.
 
 ## Dependencies
 This package depends on the following packages:
