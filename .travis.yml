@@ -1,6 +1,11 @@
 language: python
-install: pip install -r requirements.txt
-script: nosetests
+
 before_install:
 - openssl aes-256-cbc -K $encrypted_a6b16d87fee2_key -iv $encrypted_a6b16d87fee2_iv
   -in apikey.py.enc -out goodreads/apikey.py -d
+install:
+- pip install -r requirements.txt
+- pip install coveralls
+script: nosetests --with-coverage
+notifications:
+  email: false
