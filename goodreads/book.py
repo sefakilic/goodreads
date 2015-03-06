@@ -23,7 +23,7 @@ class GoodreadsBook:
     def authors(self):
         """Authors of the book"""
         return [author.GoodreadsAuthor(author_dict)
-                for author_dict in self._book_dict['authors']]
+                for author_dict in self._book_dict['authors']['author']]
 
     @property
     def description(self):

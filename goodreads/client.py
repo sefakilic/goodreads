@@ -124,7 +124,7 @@ class GoodreadsClient():
 
     def list_events(self, postal_code):
         """Show events near a location specified with the postal code"""
-        resp = self.session.get("event/index.xml", {'search[postal_code]': postal_code})
+        resp = self.request("event/index.xml", {'search[postal_code]': postal_code})
         return [GoodreadsEvent(e) for e in resp['events']['event']]
 
     def recent_reviews(self):
@@ -136,12 +136,4 @@ class GoodreadsClient():
         """Get a review"""
         resp = self.request("/review/show.xml", {'id': review_id})
         return GoodreadsReview(resp['review'])
-
-import apikey
-gc = GoodreadsClient(apikey.key, apikey.secret)
-gc.authenticate(apikey.oauth_access_token, apikey.oauth_access_token_secret)
-#b = gc.book(50)
-#es = gc.list_events(21229)
-u = gc.user(1)
-
 
