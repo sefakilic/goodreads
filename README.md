@@ -53,11 +53,10 @@ gc.authenticate(<access_token>, <access_token_secret>)
 
 Note that `access_token` and `access_token_secret` are different from developer
 key and secret. For the development step, you can call the same function with no
-parameters to get authorization. It will open a URL pointing
-[a Goodreads page](http://goodreads.com) for OAuth permission. For your
-application, you can direct the user to that particular URL, ask him/her to
-authorize your app and save the returning `access_token` and
-`access_token_secret` in your database.
+parameters to get authorization. It will open a URL pointing a Goodreads page
+for OAuth permission. For your application, you can direct the user to that
+particular URL, ask him/her to authorize your app and save the returning
+`access_token` and `access_token_secret` in your database.
 
 ## Examples
 
