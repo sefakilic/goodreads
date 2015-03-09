@@ -143,6 +143,10 @@ u'120 N. Front St.'
 u'Wrightsville'
 ```
 
+## Documentation
+
+Read more about this package [here](http://goodreads.readthedocs.org/en/latest/).
+
 ## Contribution
 
 If you find an API method that is not supported by this package, feel free to
