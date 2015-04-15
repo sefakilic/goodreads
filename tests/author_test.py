@@ -1,18 +1,18 @@
 """Test functions for GoodreadsAuthor"""
 
-from nose.tools import ok_, eq_
+from nose.tools import ok_, eq_, nottest
 from tests import client_test
 from goodreads.author import GoodreadsAuthor
 
-def author_test():
+@nottest
+def author_test_unit(client, author_id):
     """Test for getting an author"""
-    client = client_test.make_client()
-    author = client.author(1406384)
+    author = client.author(author_id)
     ok_(isinstance(author, GoodreadsAuthor))
     ok_(isinstance(book, GoodreadsBook) for book in author.books)
-    eq_(author.gid, '1406384')
-    ok_(author.about)
+    eq_(author.gid, author_id)
     ok_(author.name)
+    author.about
     author.born_at
     author.died_at
     author.fans_count
@@ -24,3 +24,10 @@ def author_test():
     author.influences
     author.user
     author.works_count
+
+def author_test():
+    client = client_test.make_client()
+    # test author with a single book
+    author_test_unit(client, '8566992')
+    # author with multiple books
+    author_test_unit(client, '1406384')

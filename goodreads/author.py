@@ -6,6 +6,9 @@ class GoodreadsAuthor:
         self._author_dict = author_dict
         self._client = client
 
+    def __repr__(self):
+        return self.name
+
     @property
     def gid(self):
         """Goodreads id of the author"""
@@ -24,8 +27,14 @@ class GoodreadsAuthor:
     @property
     def books(self):
         """Books of the author"""
-        return [book.GoodreadsBook(book_dict)
-                for book_dict in self._author_dict['books']['book']]
+        # Goodreads API returns a list if there are more than one books, otherwise,
+        # just the OrderedDict.
+        if type(self._author_dict['books']['book']) == list:
+            return [book.GoodreadsBook(book_dict, self._client)
+                    for book_dict in self._author_dict['books']['book']]
+        else:
+            return [book.GoodreadsBook(self._author_dict['books']['book'],
+                                      self._client)]
 
     @property
     def born_at(self):
@@ -75,8 +84,11 @@ class GoodreadsAuthor:
     @property
     def user(self):
         """Goodreads user profile of the author"""
-        return user.GoodreadsUser(self._author_dict['user']['id']['#text'],
-                                  self._client)
+        goodreads_user = None
+        if 'user' in self._author_dict:
+            goodreads_user = user.GoodreadsUser(
+                self._author_dict['user']['id']['#text'], self._client)
+        return goodreads_user
 
     @property
     def works_count(self):

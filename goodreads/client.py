@@ -78,10 +78,10 @@ class GoodreadsClient():
         """Get info about a book"""
         if book_id:
             resp = self.request("book/show", {'id': book_id})
-            return GoodreadsBook(resp['book'])
+            return GoodreadsBook(resp['book'], self)
         elif isbn:
             resp = self.request("book/isbn", {'isbn': isbn})
-            return GoodreadsBook(resp['book'])
+            return GoodreadsBook(resp['book'], self)
         else:
             raise GoodreadsClientException("book id or isbn required")
 
