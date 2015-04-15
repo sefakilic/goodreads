@@ -1,11 +1,10 @@
-"""Goodreads author class"""
-
 import book
 import user
 
 class GoodreadsAuthor:
-    def __init__(self, author_dict):
+    def __init__(self, author_dict, client):
         self._author_dict = author_dict
+        self._client = client
 
     @property
     def gid(self):
@@ -76,7 +75,8 @@ class GoodreadsAuthor:
     @property
     def user(self):
         """Goodreads user profile of the author"""
-        return user.GoodreadsUser(self._author_dict['id']['#text'])
+        return user.GoodreadsUser(self._author_dict['user']['id']['#text'],
+                                  self._client)
 
     @property
     def works_count(self):

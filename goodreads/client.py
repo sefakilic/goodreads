@@ -69,7 +69,7 @@ class GoodreadsClient():
     def author(self, author_id):
         """Get info about an author"""
         resp = self.request("author/show", {'id': author_id})
-        return GoodreadsAuthor(resp['author'])
+        return GoodreadsAuthor(resp['author'], self)
 
     def book(self, book_id=None, isbn=None):
         """Get info about a book"""
