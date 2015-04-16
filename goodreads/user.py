@@ -58,13 +58,13 @@ class GoodreadsUser():
     def read_status(self):
         """Get the user's read status"""
         resp = self._client.request("read_statuses/%s" % self.gid, {})
-        return resp['read']
+        return resp['read_status']
 
     def reviews(self, page=1):
         """Get all books and reviews on user's shelves"""
         resp = self._client.session.get("/review/list.xml",
                                         {'v': 2, 'id': self.gid, 'page': page})
-        return [GoodreadsReview(r) for r in resp['reviews']['review']]
+        return [review.GoodreadsReview(r) for r in resp['reviews']['review']]
 
     def shelves(self, page=1):
         """Get the user's shelves. This method gets shelves only for users with

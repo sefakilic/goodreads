@@ -60,12 +60,13 @@ class GoodreadsClient():
         return resp
 
     def user(self, user_id=None, username=None):
-        """Get info about a member by id or username"""
+        """Get info about a member by id or username.
+
+        If user_id or username not provided, the function returns the authorized
+        user
+        """
         if not (user_id or username):
-            if not hasattr(self, 'session'):
-                raise GoodreadsClientException("user_id or username required")
-            else:
-                return self.auth_user()
+            return self.auth_user()
         resp = self.request("user/show", {'id': user_id, 'username': username})
         return GoodreadsUser(resp['user'], self)
 
@@ -140,3 +141,6 @@ class GoodreadsClient():
         resp = self.request("/review/show.xml", {'id': review_id})
         return GoodreadsReview(resp['review'])
 
+from apikey import *
+gc = GoodreadsClient(key, secret)
+gc.authenticate(oauth_access_token, oauth_access_token_secret)
