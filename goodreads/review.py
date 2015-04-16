@@ -5,7 +5,7 @@ class GoodreadsReview():
         self._review_dict = review_dict
 
     def __repr__(self):
-        return "review [%s]" % review.gid
+        return "review [%s]" % self.gid
 
     @property
     def gid(self):
