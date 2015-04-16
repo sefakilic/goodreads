@@ -4,6 +4,9 @@ class GoodreadsEvent:
     def __init__(self, event_dict):
         self._event_dict = event_dict
 
+    def __repr__(self):
+        return self.title
+
     @property
     def gid(self):
         """ID for the event"""
