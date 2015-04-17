@@ -1,18 +1,16 @@
 from setuptools import setup
+import pypandoc
 
-config = {
-    'description': 'Python wrapper for Goodreads API',
-    'author': 'Sefa Kilic',
-    'url': 'https://github.com/sefakilic/goodreads/',
-    'author_email': 'sefakilic@gmail.com',
-    'version': '0.2',
-    'install_requires': ['nose',
-                         'xmltodict',
-                         'requests',
-                         'rauth'],
-    'packages': ['goodreads'],
-    'scripts': [],
-    'name': 'goodreads'
-}
-
-setup(**config)
+setup(
+    name = 'goodreads',
+    description = "Python wrapper for Goodreads API",
+    long_description = pypandoc.convert('README.md', 'rst'),
+    author = 'Sefa Kilic',
+    author_email = 'sefakilic@gmail.com',
+    url = 'https://github.com/sefakilic/goodreads/',
+    version = '0.2.0',
+    install_requires = ['nose', 'xmltodict', 'requests', 'rauth'],
+    packages = ['goodreads'],
+    scripts = [],
+    license = 'MIT',
+)
