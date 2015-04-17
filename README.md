@@ -2,6 +2,11 @@
 [![Build Status](http://img.shields.io/travis/sefakilic/goodreads.svg)](https://travis-ci.org/sefakilic/goodreads)
 [![Coverage Status](http://img.shields.io/coveralls/sefakilic/goodreads.svg)](https://coveralls.io/r/sefakilic/goodreads)
 [![Documentation Status](https://readthedocs.org/projects/goodreads/badge/?version=latest)](https://readthedocs.org/projects/goodreads/?badge=latest)
+[![Downloads](https://pypip.in/download/goodreads/badge.svg)](https://pypi.python.org/pypi/goodreads/)
+[![Latest Version](https://pypip.in/version/goodreads/badge.svg)](https://pypi.python.org/pypi/goodreads/)
+[![Supported Python versions](https://pypip.in/py_versions/goodreads/badge.svg)](https://pypi.python.org/pypi/goodreads/)
+[![License](https://pypip.in/license/goodreads/badge.svg)](https://pypi.python.org/pypi/goodreads/)
+
 
 # goodreads
 
