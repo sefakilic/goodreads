@@ -140,7 +140,3 @@ class GoodreadsClient():
         """Get a review"""
         resp = self.request("/review/show.xml", {'id': review_id})
         return GoodreadsReview(resp['review'])
-
-from apikey import *
-gc = GoodreadsClient(key, secret)
-gc.authenticate(oauth_access_token, oauth_access_token_secret)
