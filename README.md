@@ -162,3 +162,7 @@ for a bug fix or additional feature.
 
 [MIT License](http://opensource.org/licenses/mit-license.php)
 
+## Acknowledgment
+
+Thanks to [Paul Shannon](https://github.com/paulshannon) for providing
+'goodreads' package at PyPI.
