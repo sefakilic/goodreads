@@ -1,11 +1,11 @@
-from distutils.core import setup
+from setuptools import setup
 
 config = {
     'description': 'Python wrapper for Goodreads API',
     'author': 'Sefa Kilic',
     'url': 'https://github.com/sefakilic/goodreads/',
     'author_email': 'sefakilic@gmail.com',
-    'version': '0.1',
+    'version': '0.2',
     'install_requires': ['nose',
                          'xmltodict',
                          'requests',
