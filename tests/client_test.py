@@ -4,6 +4,7 @@ from nose.tools import eq_, ok_, nottest
 from goodreads.client import GoodreadsClient
 from goodreads.event import GoodreadsEvent
 from goodreads.review import GoodreadsReview
+from goodreads.book import GoodreadsBook
 from goodreads import apikey
 
 @nottest
@@ -34,8 +35,14 @@ def client_test():
     author = client.author('8566992')
     author.name
 
+    author = client.find_author("Richard Dawkins")
+    author.name
+
     book = client.book('11870085')
     book.title
+
+    books = client.search_books("The selfish gene")
+    ok_(all(isinstance(book, GoodreadsBook) for book in books))
 
     grp = client.group('8095')
     grp.title

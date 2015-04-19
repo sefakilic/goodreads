@@ -9,6 +9,7 @@ from event import GoodreadsEvent
 from group import GoodreadsGroup
 from owned_book import GoodreadsOwnedBook
 from review import GoodreadsReview
+import collections
 
 class GoodreadsClientException(Exception):
     def __init__(self, error_msg):
@@ -75,6 +76,11 @@ class GoodreadsClient():
         resp = self.request("author/show", {'id': author_id})
         return GoodreadsAuthor(resp['author'], self)
 
+    def find_author(self, author_name):
+        """Find an author by name"""
+        resp = self.request("api/author_url/%s" % author_name, {})
+        return self.author(resp['author']['@id']) if 'author' in resp else None
+
     def book(self, book_id=None, isbn=None):
         """Get info about a book"""
         if book_id:
@@ -85,6 +91,23 @@ class GoodreadsClient():
             return GoodreadsBook(resp['book'], self)
         else:
             raise GoodreadsClientException("book id or isbn required")
+
+    def search_books(self, q, page=1, search_field='all'):
+        """Get the most popular books for the given query. This will search all
+        books in the title/author/ISBN fields and show matches, sorted by
+        popularity on Goodreads.
+        :param q: query text
+        :param page: which page to return (default 1)
+        :param search_fields: field to search, one of 'title', 'author' or
+        'genre' (default is 'all')
+        """
+        resp = self.request("search/index.xml",
+                            {'q': q, 'page': page, 'search[field]': search_field})
+        works = resp['search']['results']['work']
+        # If there's only one work returned, put it in a list.
+        if type(works) == collections.OrderedDict:
+            works = [works]
+        return [self.book(work['best_book']['id']['#text']) for work in works]
 
     def group(self, group_id):
         """Get info about a group"""
