@@ -1,9 +1,0 @@
-- [ ] tests
-- [ ] Documentation
-- [ ] The data fields for a specific type of object vary depending on the
-  query. For example, accessing a book directly and accessing it through a
-  review return dictionaries with different fields (some fields are missing or
-  extra). Can we handle such cases with a single class definition?
-- [ ] Exceptions for queries with invalid ids
-- [ ] project status badges
-- [ ] 
