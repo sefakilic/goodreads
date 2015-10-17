@@ -29,9 +29,9 @@ class GoodreadsReview():
             return [shelf['@name']
                     for shelf in self._review_dict['shelves']['shelf']]
         # In some cases it appears the Goodreads API returns a response
-        # where the 'shelf' object is not a str[] but rather a single
-        # str containing the name of one shelf. In this case the Exception
-        # "TypeError: string indices must be integers" is raised.
+        # where 'shelf' object is not a list but rather a single shelf.
+        # In this case the Exception "TypeError: string indices must be
+        # integers" is raised.
         except TypeError:
             return [self._review_dict['shelves']['shelf']['@name']]
 
