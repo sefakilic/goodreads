@@ -10,7 +10,10 @@ class GoodreadsUser():
         self._client = client   # for later queries
 
     def __repr__(self):
-        return self.user_name
+        if self.user_name:
+            return self.user_name
+        else:
+            return self.gid
 
     @property
     def gid(self):
