@@ -1,6 +1,6 @@
 """Client test functions"""
 
-from nose.tools import eq_, ok_, nottest, with_setup
+from nose.tools import eq_, ok_
 from goodreads import apikey
 from goodreads.client import GoodreadsClient
 from goodreads.book import GoodreadsBook
@@ -16,10 +16,6 @@ class TestClient():
     def test_client_setup(self):
         eq_(self.client.client_key, apikey.key)
         eq_(self.client.client_secret, apikey.secret)
-
-    def x_user_authentication(self):
-        myself = self.client.auth_user()
-        print myself
 
     def test_user_info(self):
         user = self.client.user(1)
@@ -44,3 +40,8 @@ class TestClient():
         books = self.client.search_books("The selfish gene")
         assert len(books) > 0
         ok_(all(isinstance(book, GoodreadsBook) for book in books))
+
+    def test_group_by_id(self):
+        group_id = '1'
+        group = self.client.group(group_id)
+        eq_(group.gid, group_id)
