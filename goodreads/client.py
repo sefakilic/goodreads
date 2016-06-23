@@ -49,7 +49,7 @@ class GoodreadsClient():
         """Return user who authorized OAuth"""
         if not hasattr(self, 'session'):
             raise GoodreadsClientException("No authenticated session")
-        resp = self.session.get("api/auth_user", {})
+        resp = self.request_oauth('api/auth_user', {})
         user_id = resp['user']['@id']
         return self.user(user_id)
 
@@ -65,8 +65,8 @@ class GoodreadsClient():
     def user(self, user_id=None, username=None):
         """Get info about a member by id or username.
 
-        If user_id or username not provided, the function returns the authorized
-        user
+        If user_id or username not provided, the function returns the
+        authorized user.
         """
         if not (user_id or username):
             return self.auth_user()

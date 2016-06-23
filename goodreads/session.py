@@ -31,7 +31,6 @@ class GoodreadsSession():
 
     def oauth_finalize(self):
         """Once the user authorizes access, save access tokens"""
-        print self.request_token, self.request_token_secret
         self.session = self.service.get_auth_session(self.request_token,
                                                      self.request_token_secret)
         self.access_token = self.session.access_token
@@ -49,6 +48,7 @@ class GoodreadsSession():
         """OAuth get request"""
         if not params:
             params = {}
-        base = "http://www.goodreads.com/"
+        base = "https://www.goodreads.com/"
         resp = self.session.get(base + path, params=params)
+        print resp.content
         return xmltodict.parse(resp.content)['GoodreadsResponse']

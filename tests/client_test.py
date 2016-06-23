@@ -1,6 +1,5 @@
 """Client test functions"""
 
-from nose.tools import eq_, ok_
 from goodreads import apikey
 from goodreads.client import GoodreadsClient
 from goodreads.book import GoodreadsBook
@@ -14,34 +13,38 @@ class TestClient():
                                 apikey.oauth_access_token_secret)
 
     def test_client_setup(self):
-        eq_(self.client.client_key, apikey.key)
-        eq_(self.client.client_secret, apikey.secret)
+        assert self.client.client_key == apikey.key
+        assert self.client.client_secret == apikey.secret
+
+    def test_auth_user(self):
+        user = self.client.auth_user()
+        assert user.user_name == 'sefakilic'
 
     def test_user_info(self):
         user = self.client.user(1)
-        eq_(user.user_name, 'otis')
+        assert user.user_name == 'otis'
 
     def test_author_by_id(self):
         author_id = '8566992'
         author = self.client.author(author_id)
-        eq_(author.gid, author_id)
+        assert author.gid == author_id
 
     def test_author_by_name(self):
         author_name = 'Richard Dawkins'
         author = self.client.find_author(author_name)
-        eq_(author.name, author_name)
+        assert author.name == author_name
 
     def test_book_by_id(self):
         book_id = '11870085'
         book = self.client.book(book_id)
-        eq_(book.gid, book_id)
+        assert book.gid == book_id
 
     def test_search_books(self):
         books = self.client.search_books("The selfish gene")
         assert len(books) > 0
-        ok_(all(isinstance(book, GoodreadsBook) for book in books))
+        assert all(isinstance(book, GoodreadsBook) for book in books)
 
     def test_group_by_id(self):
         group_id = '1'
         group = self.client.group(group_id)
-        eq_(group.gid, group_id)
+        assert group.gid == group_id
