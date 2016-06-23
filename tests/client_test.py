@@ -1,69 +1,46 @@
 """Client test functions"""
 
-from nose.tools import eq_, ok_, nottest
-from goodreads.client import GoodreadsClient
-from goodreads.event import GoodreadsEvent
-from goodreads.review import GoodreadsReview
-from goodreads.book import GoodreadsBook
+from nose.tools import eq_, ok_, nottest, with_setup
 from goodreads import apikey
+from goodreads.client import GoodreadsClient
+from goodreads.book import GoodreadsBook
 
-@nottest
-def make_client():
-    """Create a client object"""
-    key, secret = apikey.key, apikey.secret
-    client = GoodreadsClient(key, secret)
-    client.authenticate(apikey.oauth_access_token,
-                        apikey.oauth_access_token_secret)
-    return client
 
-def client_test():
-    """Test client object"""
-    key = apikey.key
-    client = make_client()
-    eq_(client.query_dict['key'], key)
+class TestClient():
+    @classmethod
+    def setup_class(cls):
+        cls.client = GoodreadsClient(apikey.key, apikey.secret)
+        cls.client.authenticate(apikey.oauth_access_token,
+                                apikey.oauth_access_token_secret)
 
-    # Call methods
-    client.query_dict
+    def test_client_setup(self):
+        eq_(self.client.client_key, apikey.key)
+        eq_(self.client.client_secret, apikey.secret)
 
-    client.auth_user()
-    
-    myself = client.user()               # authorized user itself
-    
-    user = client.user(1)              # another user
-    user.user_name
+    def x_user_authentication(self):
+        myself = self.client.auth_user()
+        print myself
 
-    author = client.author('8566992')
-    author.name
+    def test_user_info(self):
+        user = self.client.user(1)
+        eq_(user.user_name, 'otis')
 
-    author = client.find_author("Richard Dawkins")
-    author.name
+    def test_author_by_id(self):
+        author_id = '8566992'
+        author = self.client.author(author_id)
+        eq_(author.gid, author_id)
 
-    book = client.book('11870085')
-    book.title
+    def test_author_by_name(self):
+        author_name = 'Richard Dawkins'
+        author = self.client.find_author(author_name)
+        eq_(author.name, author_name)
 
-    books = client.search_books("The selfish gene")
-    ok_(all(isinstance(book, GoodreadsBook) for book in books))
+    def test_book_by_id(self):
+        book_id = '11870085'
+        book = self.client.book(book_id)
+        eq_(book.gid, book_id)
 
-    grp = client.group('8095')
-    grp.title
-
-    client.find_groups("book")
-
-    client.book_review_stats(["0441172717", "2C0141439602"])
-
-    # list comments
-    #comments = client.list_comments("user", "36918660")
-
-    # list events nearby
-    events = client.list_events("21250")
-    ok_(all(isinstance(event, GoodreadsEvent) for event in events))
-    print events[0].title
-
-    # list recent reviews
-    reviews = client.recent_reviews()
-    ok_(all(isinstance(review, GoodreadsReview) for review in reviews))
-    print reviews[0]
-
-    # get a review
-    review = client.review("1212820989")
-    print review.body
+    def test_search_books(self):
+        books = self.client.search_books("The selfish gene")
+        assert len(books) > 0
+        ok_(all(isinstance(book, GoodreadsBook) for book in books))

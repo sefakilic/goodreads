@@ -11,12 +11,14 @@ from owned_book import GoodreadsOwnedBook
 from review import GoodreadsReview
 import collections
 
+
 class GoodreadsClientException(Exception):
     def __init__(self, error_msg):
         self.error_msg = error_msg
 
     def __str__(self):
         return self.error_msg
+
 
 class GoodreadsClient():
     base_url = "http://www.goodreads.com/"
