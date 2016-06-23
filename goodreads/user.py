@@ -86,4 +86,3 @@ class GoodreadsUser():
         resp = self._client.request("shelf/list.xml",
                                     {'user_id': self.gid, 'page': page})
         return resp['shelves']['user_shelf']
-

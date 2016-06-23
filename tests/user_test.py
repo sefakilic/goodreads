@@ -36,12 +36,16 @@ class TestUser():
         eq_(self.user.small_image_url,
             u'http://d.gr-assets.com/users/1189644957p2/1.jpg')
 
-    def test_list_groups(self):
+    def test_user_in_groups(self):
         groups = self.user.list_groups()
         ok_(all(isinstance(group, GoodreadsGroup) for group in groups))
 
+    def test_user_not_in_any_group(self):
+        user = self.client.user('25044452')  # A user with no joined groups
+        eq_(user.list_groups(), [])
+
     def test_user_own_books(self):
-        user =  self.client.user('6205894')
+        user = self.client.user('6205894')  # A user with owned books
         owned_books = user.owned_books()
         ok_(all(isinstance(book, GoodreadsOwnedBook) for book in owned_books))
 
