@@ -48,15 +48,26 @@ class GoodreadsUser():
     def list_groups(self, page=1):
         """List groups for the user. If there are more than 30 groups, get them
         page by page."""
-        resp = self._client.request("group/list/%s.xml" % self.gid, {'page':page})
-        return resp['groups']['list']['group']
+        try:
+            resp = self._client.request("group/list/%s.xml" % self.gid,
+                                        {'page':page})
+            groups = [group.GoodreadsGroup(group_dict)
+                      for group_dict in resp['groups']['list']['group']]
+        except KeyError:
+            groups = []
+        return groups
 
     def owned_books(self, page=1):
         """Return the list of books owned by the user"""
-        resp = self._client.session.get("owned_books/user/%s.xml" % self.gid,
-                                        {'page': page, 'format': 'xml'})
-        return [owned_book.GoodreadsOwnedBook(d)
-                for d in resp['owned_books']['owned_book']]
+        try:
+            resp = self._client.session.get(
+                "owned_books/user/%s.xml" % self.gid,
+                {'page': page, 'format': 'xml'})
+            owned_books = [owned_book.GoodreadsOwnedBook(d)
+                           for d in resp['owned_books']['owned_book']]
+        except KeyError:
+            owned_books = []
+        return owned_books
 
     def read_status(self):
         """Get the user's read status"""

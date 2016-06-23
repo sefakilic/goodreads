@@ -5,6 +5,9 @@ class GoodreadsGroup:
     def __init__(self, group_dict):
         self._group_dict = group_dict
 
+    def __repr__(self):
+        return self.title
+
     @property
     def gid(self):
         """Goodreads id for the group"""
