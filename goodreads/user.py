@@ -71,8 +71,7 @@ class GoodreadsUser():
 
     def read_status(self):
         """Get the user's read status"""
-        resp = self._client.request("read_statuses/%s" % self.gid, {})
-        return resp['read_status']
+        raise NotImplementedError
 
     def reviews(self, page=1):
         """Get all books and reviews on user's shelves"""
