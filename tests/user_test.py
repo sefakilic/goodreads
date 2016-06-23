@@ -3,6 +3,8 @@ from goodreads.client import GoodreadsClient
 from goodreads.user import GoodreadsUser
 from goodreads.group import GoodreadsGroup
 from goodreads.owned_book import GoodreadsOwnedBook
+from goodreads.review import GoodreadsReview
+from goodreads.shelf import GoodreadsShelf
 from nose.tools import eq_, ok_
 
 
