@@ -11,7 +11,7 @@ class TestUser():
     def setup_class(cls):
         cls.client = GoodreadsClient(apikey.key, apikey.secret)
         cls.client.authenticate(apikey.oauth_access_token,
-                            apikey.oauth_access_token_secret)
+                                apikey.oauth_access_token_secret)
         cls.user = cls.client.user('1')
 
     def test_get_user(self):
@@ -52,3 +52,11 @@ class TestUser():
     def test_user_not_own_any_books(self):
         owned_books = self.user.owned_books()
         eq_(owned_books, [])
+
+    def test_reviews(self):
+        reviews = self.user.reviews()
+        ok_(all(isinstance(review, GoodreadsReview) for review in reviews))
+
+    def test_shelves(self):
+        shelves = self.user.shelves()
+        ok_(all(isinstance(shelf, GoodreadsShelf) for shelf in shelves))
