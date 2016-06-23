@@ -84,4 +84,4 @@ class GoodreadsUser():
         public profile"""
         resp = self._client.request("shelf/list.xml",
                                     {'user_id': self.gid, 'page': page})
-        return resp['shelves']['user_shelf']
+        return [shelf.GoodreadsShelf(s) for s in resp['shelves']['user_shelf']]
