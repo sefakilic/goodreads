@@ -1,6 +1,7 @@
 from rauth.service import OAuth1Service, OAuth1Session
 import xmltodict
 
+
 class GoodreadsSession():
     """Handle OAuth sessions"""
     def __init__(self, client_key, client_secret, access_token=None,

@@ -21,7 +21,7 @@ class GoodreadsClientException(Exception):
 
 
 class GoodreadsClient():
-    base_url = "http://www.goodreads.com/"
+    base_url = "https://www.goodreads.com/"
 
     def __init__(self, client_key, client_secret):
         """Initialize the client"""
@@ -118,7 +118,8 @@ class GoodreadsClient():
 
     def owned_book(self, owned_book_id):
         """Get info about an owned book, given its id"""
-        resp = self.session.get("owned_books/show/%s.xml" % owned_book_id, {})
+        resp = self.session.get("owned_books/show/%s" % owned_book_id,
+                                {'format': 'xml'})
         return GoodreadsOwnedBook(resp['owned_book']['owned_book'])
 
     def find_groups(self, query, page=1):

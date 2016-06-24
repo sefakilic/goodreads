@@ -62,4 +62,3 @@ class GoodreadsGroup:
     def members(self):
         """Members of the group"""
         return self._group_dict['members']['group_users']
-

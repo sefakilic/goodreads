@@ -1,5 +1,4 @@
 
-
 class GoodreadsShelf:
     def __init__(self, shelf_dict):
         self._shelf_dict = shelf_dict

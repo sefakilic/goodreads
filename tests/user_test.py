@@ -28,15 +28,15 @@ class TestUser():
 
     def test_link(self):
         eq_(self.user.link,
-            u'http://www.goodreads.com/user/show/1-otis-chandler')
+            u'https://www.goodreads.com/user/show/1-otis-chandler')
 
     def test_image_url(self):
         eq_(self.user.image_url,
-            u'http://d.gr-assets.com/users/1189644957p3/1.jpg')
+            u'https://d.gr-assets.com/users/1189644957p3/1.jpg')
 
     def test_small_image_url(self):
         eq_(self.user.small_image_url,
-            u'http://d.gr-assets.com/users/1189644957p2/1.jpg')
+            u'https://d.gr-assets.com/users/1189644957p2/1.jpg')
 
     def test_user_in_groups(self):
         groups = self.user.list_groups()

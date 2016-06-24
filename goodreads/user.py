@@ -1,8 +1,8 @@
-import book
-import request
 import group
 import owned_book
 import review
+import shelf
+
 
 class GoodreadsUser():
     def __init__(self, user_dict, client):
@@ -50,7 +50,7 @@ class GoodreadsUser():
         page by page."""
         try:
             resp = self._client.request("group/list/%s.xml" % self.gid,
-                                        {'page':page})
+                                        {'page': page})
             groups = [group.GoodreadsGroup(group_dict)
                       for group_dict in resp['groups']['list']['group']]
         except KeyError:
@@ -61,8 +61,8 @@ class GoodreadsUser():
         """Return the list of books owned by the user"""
         try:
             resp = self._client.session.get(
-                "owned_books/user/%s.xml" % self.gid,
-                {'page': page, 'format': 'xml'})
+                'owned_books/user',
+                {'page': page, 'format': 'xml', 'id': self.gid})
             owned_books = [owned_book.GoodreadsOwnedBook(d)
                            for d in resp['owned_books']['owned_book']]
         except KeyError:

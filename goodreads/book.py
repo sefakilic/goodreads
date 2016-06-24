@@ -1,6 +1,6 @@
 """Goodreads book class"""
-
 import author
+
 
 class GoodreadsBook:
     def __init__(self, book_dict, client):
@@ -143,6 +143,3 @@ class GoodreadsBook:
     def similar_books(self):
         """Return the list of similar books."""
         return self._book_dict['similar_books']['book']
-
-
-

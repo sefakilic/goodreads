@@ -1,5 +1,6 @@
 """Class implementation for Goodreads reviews"""
 
+
 class GoodreadsReview():
     def __init__(self, review_dict):
         self._review_dict = review_dict
@@ -74,4 +75,3 @@ class GoodreadsReview():
     def owned(self):
         """Is the book owned by this user?"""
         return self._review_dict['owned']
-
