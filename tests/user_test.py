@@ -50,10 +50,6 @@ class TestUser():
         owned_books = self.user.owned_books()
         ok_(all(isinstance(book, GoodreadsOwnedBook) for book in owned_books))
 
-    def test_user_not_own_any_books(self):
-        owned_books = self.user.owned_books()
-        eq_(owned_books, [])
-
     def test_reviews(self):
         reviews = self.user.reviews()
         ok_(all(isinstance(review, GoodreadsReview) for review in reviews))
