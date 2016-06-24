@@ -47,8 +47,7 @@ class TestUser():
         eq_(user.list_groups(), [])
 
     def test_user_own_books(self):
-        user = self.client.user('6205894')  # A user with owned books
-        owned_books = user.owned_books()
+        owned_books = self.user.owned_books()
         ok_(all(isinstance(book, GoodreadsOwnedBook) for book in owned_books))
 
     def test_user_not_own_any_books(self):
