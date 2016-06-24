@@ -69,10 +69,6 @@ class GoodreadsUser():
             owned_books = []
         return owned_books
 
-    def read_status(self):
-        """Get the user's read status"""
-        raise NotImplementedError
-
     def reviews(self, page=1):
         """Get all books and reviews on user's shelves"""
         resp = self._client.session.get("/review/list.xml",
