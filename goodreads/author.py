@@ -1,5 +1,5 @@
-from . import book
-from . import user
+import book
+import user
 
 
 class GoodreadsAuthor:

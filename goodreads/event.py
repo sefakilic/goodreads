@@ -1,5 +1,6 @@
 """Class for GoodreadsEvent"""
 
+
 class GoodreadsEvent:
     def __init__(self, event_dict):
         self._event_dict = event_dict
