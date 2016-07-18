@@ -1,5 +1,6 @@
 """Goodreads book class"""
-import author
+from . import author
+from . import shelf
 
 
 class GoodreadsBook:
@@ -65,7 +66,8 @@ class GoodreadsBook:
     @property
     def popular_shelves(self):
         """Popular shelves for the book"""
-        return self._book_dict['popular_shelves']
+        return [shelf.GoodreadsShelf(shelf_dict)
+                for shelf_dict in self._book_dict['popular_shelves']['shelf']]
 
     @property
     def work(self):
@@ -142,4 +144,5 @@ class GoodreadsBook:
     @property
     def similar_books(self):
         """Return the list of similar books."""
-        return self._book_dict['similar_books']['book']
+        return [GoodreadsBook(b, self._client)
+                for b in self._book_dict['similar_books']['book']]

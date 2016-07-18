@@ -8,4 +8,8 @@ class GoodreadsShelf:
 
     @property
     def name(self):
-        return self._shelf_dict['name']
+        return self._shelf_dict['@name']
+
+    @property
+    def count(self):
+        return self._shelf_dict['@count']
