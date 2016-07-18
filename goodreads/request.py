@@ -15,7 +15,8 @@ class GoodreadsRequestException(Exception):
 class GoodreadsRequest():
     def __init__(self, client, path, query_dict, req_format='xml'):
         """Initialize request object."""
-        self.params = dict(query_dict.items() + client.query_dict.items())
+        self.params = query_dict
+        self.params.update(client.query_dict)
         self.host = client.base_url
         self.path = path
         self.req_format = req_format
