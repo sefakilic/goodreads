@@ -1,6 +1,7 @@
 import book
 import user
 
+
 class GoodreadsAuthor:
     def __init__(self, author_dict, client):
         self._author_dict = author_dict
@@ -46,7 +47,6 @@ class GoodreadsAuthor:
         """Author date of death"""
         return self._author_dict['died_at']
 
-    @property
     def fans_count(self):
         """Number of fans"""
         return self._author_dict['fans_count']
