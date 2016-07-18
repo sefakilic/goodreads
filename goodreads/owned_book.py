@@ -1,6 +1,6 @@
 """Class definition for owned books"""
 
-import book
+from . import book
 
 class GoodreadsOwnedBook:
     def __init__(self, owned_book_dict):
