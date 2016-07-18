@@ -4,7 +4,8 @@
 goodreads
 =========
 
-..image:: https://s.gr-assets.com/assets/icons/goodreads_icon_50x50-823139ec9dc84278d3863007486ae0ac.png
+..image:: goodreads.png
+   target: https://s.gr-assets.com/assets/icons/goodreads_icon_50x50-823139ec9dc84278d3863007486ae0ac.png
 
 This package provides a Python interface for the `Goodreads
 API <http://goodreads.com/api>`__. Using it, you can do pretty much
