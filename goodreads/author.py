@@ -1,6 +1,3 @@
-import book
-import user
-
 
 class GoodreadsAuthor:
     def __init__(self, author_dict, client):
@@ -30,12 +27,12 @@ class GoodreadsAuthor:
         """Books of the author"""
         # Goodreads API returns a list if there are more than one books, otherwise,
         # just the OrderedDict.
+        from .book import GoodreadsBook
         if type(self._author_dict['books']['book']) == list:
-            return [book.GoodreadsBook(book_dict, self._client)
+            return [GoodreadsBook(book_dict, self._client)
                     for book_dict in self._author_dict['books']['book']]
         else:
-            return [book.GoodreadsBook(self._author_dict['books']['book'],
-                                      self._client)]
+            return [GoodreadsBook(self._author_dict['books']['book'], self._client)]
 
     @property
     def born_at(self):
@@ -84,9 +81,10 @@ class GoodreadsAuthor:
     @property
     def user(self):
         """Goodreads user profile of the author"""
+        from .user import GoodreadsUser
         goodreads_user = None
         if 'user' in self._author_dict:
-            goodreads_user = user.GoodreadsUser(
+            goodreads_user = GoodreadsUser(
                 self._author_dict['user']['id']['#text'], self._client)
         return goodreads_user
 
