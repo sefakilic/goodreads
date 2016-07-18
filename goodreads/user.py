@@ -1,7 +1,7 @@
-import group
-import owned_book
-import review
-import shelf
+from . import group
+from . import owned_book
+from . import review
+from . import shelf
 
 
 class GoodreadsUser():
