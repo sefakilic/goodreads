@@ -192,7 +192,7 @@ providing 'goodreads' package at PyPI.
    :target: https://pypi.python.org/pypi/goodreads/
 .. |Latest Version| image:: https://img.shields.io/pypi/v/goodreads.svg
    :target: https://pypi.python.org/pypi/goodreads/
-.. |Supported Python versions| image:: https://img.shields.io/pypi/py_versions/goodreads.svg
+.. |Supported Python versions| image:: https://img.shields.io/pypi/pyversions/goodreads.svg
    :target: https://pypi.python.org/pypi/goodreads/
 .. |License| image:: https://img.shields.io/pypi/l/goodreads.svg
    :target: https://pypi.python.org/pypi/goodreads/
