@@ -185,11 +185,11 @@ providing 'goodreads' package at PyPI.
    :target: https://coveralls.io/r/sefakilic/goodreads
 .. |Documentation Status| image:: https://readthedocs.org/projects/goodreads/badge/?version=latest
    :target: https://readthedocs.org/projects/goodreads/?badge=latest
-.. |Downloads| image:: https://pypip.in/download/goodreads/badge.svg
+.. |Downloads| image:: https://img.shields.io/pypi/dm/goodreads.svg
    :target: https://pypi.python.org/pypi/goodreads/
-.. |Latest Version| image:: https://pypip.in/version/goodreads/badge.svg
+.. |Latest Version| image:: https://img.shields.io/pypi/v/goodreads.svg
    :target: https://pypi.python.org/pypi/goodreads/
-.. |Supported Python versions| image:: https://pypip.in/py_versions/goodreads/badge.svg
+.. |Supported Python versions| image:: https://img.shields.io/pypi/py_versions/goodreads.svg
    :target: https://pypi.python.org/pypi/goodreads/
-.. |License| image:: https://pypip.in/license/goodreads/badge.svg
+.. |License| image:: https://img.shields.io/pypi/l/goodreads.svg
    :target: https://pypi.python.org/pypi/goodreads/
