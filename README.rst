@@ -1,8 +1,8 @@
-|Build Status| |Coverage Status| |Documentation Status| |Downloads|
-|Latest Version| |Supported Python versions| |License|
-
 goodreads
 =========
+
+|Build Status| |Coverage Status| |Documentation Status| |Downloads|
+|Latest Version| |Supported Python versions| |License|
 
 .. image:: http://s.gr-assets.com/assets/icons/goodreads_icon_50x50-823139ec9dc84278d3863007486ae0ac.png
    :width: 100
