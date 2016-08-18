@@ -1,3 +1,5 @@
+import collections
+
 from . import group
 from . import owned_book
 from . import review
@@ -63,8 +65,12 @@ class GoodreadsUser():
             resp = self._client.session.get(
                 'owned_books/user',
                 {'page': page, 'format': 'xml', 'id': self.gid})
+            owned_books_resp = resp['owned_books']['owned_book']
+            # If there's only one owned book returned, put it in a list.
+            if type(owned_books_resp) == collections.OrderedDict:
+                owned_books_resp = [owned_books_resp]
             owned_books = [owned_book.GoodreadsOwnedBook(d)
-                           for d in resp['owned_books']['owned_book']]
+                           for d in owned_books_resp]
         except KeyError:
             owned_books = []
         return owned_books
