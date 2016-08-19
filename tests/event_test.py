@@ -1,5 +1,3 @@
-from nose.tools import eq_, ok_
-
 from goodreads import apikey
 from goodreads.client import GoodreadsClient
 from goodreads.event import GoodreadsEvent
@@ -14,4 +12,4 @@ class TestEvent():
         cls.events = client.list_events('21244')
 
     def test_list_events(self):
-        ok_(all(isinstance(e, GoodreadsEvent) for e in self.events))
+        assert all(isinstance(e, GoodreadsEvent) for e in self.events)

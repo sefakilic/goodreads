@@ -5,12 +5,12 @@ setup(
     description="Python wrapper for Goodreads API",
     long_description=open("README.rst").read(),
     url='https://github.com/sefakilic/goodreads/',
-    
+
     author='Sefa Kilic',
     author_email='sefakilic@gmail.com',
 
     packages=['goodreads'],
-    version='0.3.1',
+    version='0.3.2',
     install_requires=['nose', 'xmltodict', 'requests', 'rauth'],
 
     license='MIT',

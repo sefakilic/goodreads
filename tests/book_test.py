@@ -72,10 +72,10 @@ class TestBook():
         assert self.book.edition_information is None
 
     def test_image_url(self):
-        assert self.book.image_url == 'https://d.gr-assets.com/books/1360206420m/11870085.jpg'
+        assert self.book.image_url == 'https://d2arxad8u2l0g7.cloudfront.net/books/1360206420m/11870085.jpg'
 
     def test_small_image_url(self):
-        assert self.book.small_image_url == 'https://d.gr-assets.com/books/1360206420s/11870085.jpg'
+        assert self.book.small_image_url == 'https://d2arxad8u2l0g7.cloudfront.net/books/1360206420s/11870085.jpg'
 
     def test_is_ebook(self):
         assert self.book.is_ebook == 'false'

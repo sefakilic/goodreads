@@ -32,11 +32,11 @@ class TestUser():
 
     def test_image_url(self):
         eq_(self.user.image_url,
-            u'https://d.gr-assets.com/users/1189644957p3/1.jpg')
+            u'https://d2arxad8u2l0g7.cloudfront.net/users/1189644957p3/1.jpg')
 
     def test_small_image_url(self):
         eq_(self.user.small_image_url,
-            u'https://d.gr-assets.com/users/1189644957p2/1.jpg')
+            u'https://d2arxad8u2l0g7.cloudfront.net/users/1189644957p2/1.jpg')
 
     def test_user_in_groups(self):
         groups = self.user.list_groups()
